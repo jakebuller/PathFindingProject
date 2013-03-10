@@ -26,7 +26,7 @@ namespace PathFindingProject.Search.Framework {
 			return 0 == result.Count;
 		}
 
-		public Node PopFromFrontier() {
+		public Node PeekAtFrontier() {
 			return m_frontier.First();
 		}
 
@@ -45,6 +45,10 @@ namespace PathFindingProject.Search.Framework {
 			int size;
 			Metrics.TryGetInt( QueueSizeMetric, out size );
 			return size;
+		}
+
+		public void SetQueueSize( int size ) {
+			Metrics.Set( QueueSizeMetric, size );
 		}
 
 		public int GetMaxQueueSize() {
@@ -72,44 +76,45 @@ namespace PathFindingProject.Search.Framework {
 			ClearInstrumentation();
 			Node root = new Node( problem.InitialState );
 			if ( CheckGoalBeforeAddingToFrontier ) {
-				if ( SearchUtils.isGoalState(problem, root ) ) {
-					return SearchUtils.actionsFromNodes(root.getPathFromRoot());
+				if ( SearchUtils.IsGoalState( problem, root ) ) {
+					return SearchUtils.ActionsFromNodes( root.GetPathFromRoot() );
 				}
 			}
 			frontier.Add( root );
 			SetQueueSize( frontier.Count );
-			while (!(frontier.isEmpty()) && !CancelableThread.currIsCanceled()) {
-				// choose a leaf node and remove it from the frontier
-				Node nodeToExpand = popNodeFromFrontier();
-				setQueueSize(frontier.size());
-				// Only need to check the nodeToExpand if have not already
-				// checked before adding to the frontier
-				if (!isCheckGoalBeforeAddingToFrontier()) {
-					// if the node contains a goal state then return the
-					// corresponding solution
-					if (SearchUtils.isGoalState(problem, nodeToExpand)) {
-						setPathCost(nodeToExpand.getPathCost());
-						return SearchUtils.actionsFromNodes(nodeToExpand
-								.getPathFromRoot());
+			while( 0 != frontier.Count ) {//&& !CancelableThread.currIsCanceled() ) {
+				Node nodeToExpand = PeekAtFrontier();
+				SetQueueSize( frontier.Count );
+				if( !CheckGoalBeforeAddingToFrontier ) {
+
+					if( SearchUtils.IsGoalState( problem, nodeToExpand ) ) {
+						SetPathCost( nodeToExpand.PathCost );
+						
+						return SearchUtils.ActionsFromNodes(
+							nodeToExpand.GetPathFromRoot() 
+						);
 					}
 				}
-				// expand the chosen node, adding the resulting nodes to the
-				// frontier
-				for (Node fn : getResultingNodesToAddToFrontier(nodeToExpand,
-						problem)) {
-					if (isCheckGoalBeforeAddingToFrontier()) {
-						if (SearchUtils.isGoalState(problem, fn)) {
-							setPathCost(fn.getPathCost());
-							return SearchUtils.actionsFromNodes(fn
-									.getPathFromRoot());
+
+				foreach( Node fn in GetResultingNodesToAddToFrontier(
+						nodeToExpand,
+						problem 
+					)
+				) {
+					if( CheckGoalBeforeAddingToFrontier ) {
+						if( SearchUtils.IsGoalState( problem, fn ) ) {
+							SetPathCost( fn.PathCost );
+							return SearchUtils.ActionsFromNodes(
+								fn.GetPathFromRoot()
+							);
 						}
 					}
-					frontier.insert(fn);
+					frontier.Add( fn );
 				}
-				setQueueSize(frontier.size());
+				SetQueueSize( frontier.Count );
 			}
-			// if the frontier is empty then return failure
-			return failure();
+
+			return new List<IAction>();
 		}
 	}
 }
