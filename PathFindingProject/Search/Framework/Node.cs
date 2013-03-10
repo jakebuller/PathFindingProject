@@ -59,7 +59,7 @@ namespace PathFindingProject.Search.Framework {
 			return m_parent == null;
 		}
 
-		public IEnumerable<Node> getPathFromRoot() {
+		public IEnumerable<Node> GetPathFromRoot() {
 			var path = new Stack<Node>();
 			var current = this;
 			while (!current.IsRootNode()) {
