@@ -60,6 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\Framework\QueueSearch.cs" />
     <Compile Include="Search\Framework\SearchUtils.cs" />
+    <Compile Include="Search\Informed\AStarSearch.cs" />
+    <Compile Include="Search\Informed\AStarSearchEvaluationFunction.cs" />
     <Compile Include="Search\Informed\BestFirstSearch.cs" />
   </ItemGroup>
   <ItemGroup>
