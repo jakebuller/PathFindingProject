@@ -6,19 +6,27 @@ using System.Threading.Tasks;
 
 using PathFindingProject.Search.Framework;
 
-namespace PathFindingProject.Search.Informed
-{
-    public class AStarSearchEvaluationFunction: IEvaluationFunction
-    {
-        private PathCostFunction gf = new PathCostFunction();
-        private HeuristicFunction hf = null;
+namespace PathFindingProject.Search.Informed {
+    public class AStarSearchEvaluationFunction: IEvaluationFunction {
+		private PathCostFunction m_pathCostFunc;
+		private IHeuristicFunction m_heuristicFunc;
 
-        public AStarSearchEvaluationFunction(HeuristicFunction hf) {
-		    this.hf = hf;
+		public AStarSearchEvaluationFunction(
+			PathCostFunction pathCostFunc,
+			IHeuristicFunction heuristic
+		) {
+			m_pathCostFunc = pathCostFunc;
+			m_heuristicFunc = heuristic;
+		}
+
+        public AStarSearchEvaluationFunction( IHeuristicFunction heuristic ) {
+			m_pathCostFunc = new PathCostFunction();
+			m_heuristicFunc = heuristic;
 	    }
 
-        public double f(Node n){
-            return gf.g(n) + hf.h(n.State);
+        public double Evaluate( Node node ){
+			return m_pathCostFunc.Calculate( node ) + 
+				m_heuristicFunc.Calculate( node.State );
         }
 
 

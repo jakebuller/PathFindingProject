@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 using PathFindingProject.Search.Framework;
 
-namespace PathFindingProject.Search.Informed
-{
-    public class AStarSearch: BestFirstSearch {
-        public AStarSearch(QueueSearch search, HeuristicFunction hf) : base(search, new AStarSearchEvaluationFunction(hf)) {}
+namespace PathFindingProject.Search.Informed {
+    public class AStarSearch : BestFirstSearch {
+        public AStarSearch( 
+			QueueSearch search,
+			IHeuristicFunction heuristic
+		) : base(
+			search, 
+			new AStarSearchEvaluationFunction( heuristic )
+		) {}
     }
 }
