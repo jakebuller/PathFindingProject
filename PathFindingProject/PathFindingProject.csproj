@@ -43,6 +43,8 @@
     <Compile Include="Agent\IAction.cs" />
     <Compile Include="Agent\NoOpAction.cs" />
     <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
+    <Compile Include="Search\Framework\HeuristicFunction.cs" />
+    <Compile Include="Search\Framework\PathCostFunction.cs" />
     <Compile Include="Search\Framework\IActionsFunction.cs" />
     <Compile Include="Search\Framework\IEvaluationFunction.cs" />
     <Compile Include="Search\Framework\IGoalTest.cs" />
