@@ -8,7 +8,7 @@ using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Search.Informed
 {
-    public class AStarSearchEvaluationFunction
+    public class AStarSearchEvaluationFunction: IEvaluationFunction
     {
         private PathCostFunction gf = new PathCostFunction();
         private HeuristicFunction hf = null;
