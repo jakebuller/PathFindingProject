@@ -1,30 +1,14 @@
 ﻿
-public class Point
-{
-    private static int x;
-    private static int y;
-	public Point(int X, int Y)
-	{
-        x = X;
-        y = Y;
-	}
 
-    public int GetX()
-    {
-        return x;
-    }
-    public int GetY()
-    {
-        return y;
-    }
-    public void SetX(int X)
-    {
-        x = X;
-        return;
-    }
-    public void SetY(int Y)
-    {
-        y = Y;
-        return;
-    }
+namespace PathFindingProject {
+	public class Point {
+		
+		public int XCoord { get; private set; }
+		public int YCoord { get; private set; }
+		
+		public Point( int x, int y ) {
+			XCoord = x;
+			YCoord = y;
+		}
+	}
 }
