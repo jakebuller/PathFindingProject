@@ -4,7 +4,7 @@ namespace PathFindingProject.Agent {
 
 	public static NoOpAction NoOp = new NoOpAction();
 
-	public bool IsNoOp() {
+	public override bool IsNoOp() {
 		return true;
 	}
 

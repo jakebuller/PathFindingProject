@@ -19,7 +19,7 @@ namespace PathFindingProject.Agent {
 		return (string) GetAttribute( AttributeName );
 	}
 
-	public bool IsNoOp() {
+	public virtual bool IsNoOp() {
 		return false;
 	}
 	
