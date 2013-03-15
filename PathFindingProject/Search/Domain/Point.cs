@@ -1,6 +1,6 @@
 ﻿
 
-namespace PathFindingProject {
+namespace PathFindingProject.Search.Domain {
 	public class Point {
 		
 		public int XCoord { get; private set; }
