@@ -48,6 +48,7 @@
     <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Search\Domain\SimpleStepCostFunctin.cs" />
     <Compile Include="Search\Framework\IHeuristicFunction.cs" />
     <Compile Include="Search\Framework\PathCostFunction.cs" />
     <Compile Include="Search\Framework\IActionsFunction.cs" />
@@ -71,9 +72,7 @@
     <Compile Include="Search\Informed\AStarSearchEvaluationFunction.cs" />
     <Compile Include="Search\Informed\BestFirstSearch.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Search\Domain\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Maps\map_1.txt" />
   </ItemGroup>
