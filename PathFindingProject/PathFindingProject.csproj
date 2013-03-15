@@ -33,12 +33,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,7 +46,7 @@
     <Compile Include="Agent\IAction.cs" />
     <Compile Include="Agent\NoOpAction.cs" />
     <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Search\Domain\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Search\Domain\DirectPathHeursticFunction.cs" />
     <Compile Include="Search\Domain\SimpleStepCostFunctin.cs" />
@@ -81,9 +75,6 @@
     <Compile Include="Search\Informed\BestFirstSearch.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <ItemGroup>
     <Content Include="Maps\map_1.txt" />
   </ItemGroup>
