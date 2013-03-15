@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PathFindingProject {
 	public class Program {
@@ -15,8 +13,7 @@ namespace PathFindingProject {
             string[] lines = System.IO.File.ReadAllLines(@"../../Maps/map_1.txt");
             string[] coords;  
             // Display the file contents by using a foreach loop.
-            if (lines.Length < 6)
-            {
+            if (lines.Length < 6) {
                 //Insufficient parameters
                 Environment.Exit(1);
             }           

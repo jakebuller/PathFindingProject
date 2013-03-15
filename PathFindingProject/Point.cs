@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 public class Point
 {
     private static int x;
