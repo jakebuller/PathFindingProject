@@ -18,8 +18,9 @@ namespace PathFindingProject.Search.Domain {
 		public double Calculate( object state ) {
 			var map = (int[,])state;
 			double sum = 0;
-			for ( int x = 0; x < map.Length - 1; x++ ) {
-				for ( int y = 0; y < map.Rank - 1; y++ ) {
+
+			for ( int x = 0; x < map.GetLength(0); x++ ) {
+				for ( int y = 0; y < map.GetLength(1); y++ ) {
 					if ( map[x, y] == 2 ) {
 						sum += GetDistanceToRendevous( x, y );
 					}
