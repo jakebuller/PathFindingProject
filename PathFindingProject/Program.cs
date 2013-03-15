@@ -21,8 +21,8 @@ namespace PathFindingProject {
             }           
             //get the room dimensions
 			string[] dims = lines[0].Split( ' ' );
-			DimX = int.Parse( dims[1] );
-			DimY = int.Parse( dims[0] );
+			DimY = int.Parse( dims[1] );
+			DimX = int.Parse( dims[0] );
 
             Robots = new List<Point>();
             //get the robots
@@ -40,12 +40,12 @@ namespace PathFindingProject {
 
             int depth = 3 + Robots.Count();
             Map = new int[DimX,DimY];
-            for (int i = 0; i < DimY; i++) {
+            for (int i = 0; i < DimX; i++) {
                // Console.WriteLine(lines[i + depth]);
                 char[] line = lines[i + depth].ToCharArray();
                 for (int j = 0; j < line.Length; j++) {
-					Map[j, i] = ( int )Char.GetNumericValue( line[j] );
-					Console.Write( Map[j, i] );                 
+					Map[i, j] = ( int )Char.GetNumericValue( line[j] );
+					Console.Write( Map[i, j] );                 
                 }
                 Console.WriteLine();
             }
