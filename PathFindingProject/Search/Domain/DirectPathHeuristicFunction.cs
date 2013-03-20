@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Search.Domain {
-	public class DirectPathHeursticFunction : IHeuristicFunction {
+	public class DirectPathHeuristicFunction : IHeuristicFunction {
 
 		private readonly Point m_rendevousPoint;
 
-		public DirectPathHeursticFunction( Point rendevousPoint ) {
+		public DirectPathHeuristicFunction( Point rendevousPoint ) {
 			m_rendevousPoint = rendevousPoint;
 		}
 

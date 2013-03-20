@@ -43,12 +43,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent\DynamicAction.cs" />
+    <Compile Include="Agent\DynamicPercept.cs" />
     <Compile Include="Agent\IAction.cs" />
+    <Compile Include="Agent\IPercept.cs" />
     <Compile Include="Agent\NoOpAction.cs" />
     <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
+    <Compile Include="Environment\Map\AdaptableHeuristicFunction.cs" />
+    <Compile Include="Environment\Map\ExtendableMap.cs" />
+    <Compile Include="Environment\Map\Map.cs" />
+    <Compile Include="Environment\Map\MapFunctionFactory.cs" />
+    <Compile Include="Environment\Map\MapStepCostFunction.cs" />
+    <Compile Include="Environment\Map\StraightLineDistanceHeuristicFunction.cs" />
     <Compile Include="Search\Domain\Point.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Search\Domain\DirectPathHeursticFunction.cs" />
+    <Compile Include="Search\Domain\DirectPathHeuristicFunction.cs" />
     <Compile Include="Search\Domain\SimpleStepCostFunction.cs" />
     <Compile Include="Search\Domain\GoalTest.cs" />
     <Compile Include="Search\Framework\IHeuristicFunction.cs" />
@@ -64,6 +72,7 @@
     <Compile Include="Search\Framework\Node.cs" />
     <Compile Include="Search\Framework\NodeComparer.cs" />
     <Compile Include="Search\Framework\NodeExpander.cs" />
+    <Compile Include="Search\Framework\IPerceptToStateFunction.cs" />
     <Compile Include="Search\Framework\PrioritySearch.cs" />
     <Compile Include="Search\Framework\Problem.cs" />
     <Compile Include="FriendAssemblies.cs" />
@@ -73,6 +82,9 @@
     <Compile Include="Search\Informed\AStarSearch.cs" />
     <Compile Include="Search\Informed\AStarSearchEvaluationFunction.cs" />
     <Compile Include="Search\Informed\BestFirstSearch.cs" />
+    <Compile Include="Util\Datastructure\LabeledGraph.cs" />
+    <Compile Include="Util\Datastructure\Point2D.cs" />
+    <Compile Include="Util\Util.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectPathHeursticFunctionTests.cs" />
+    <Compile Include="DirectPathHeuristicFunctionTests.cs" />
     <Compile Include="GoalTestTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
