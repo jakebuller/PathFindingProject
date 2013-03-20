@@ -8,7 +8,7 @@ using PathFindingProject.Agent;
 using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Search.Domain {
-	public class SimpleStepCostFunctin : IStepCostFunction {
+	public class SimpleStepCostFunction : IStepCostFunction {
 		public double Cost( object state, IAction action, object stateDelta ) {
 			return 1;
 		}
