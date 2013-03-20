@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 using PathFindingProject.Agent;
 
-namespace PathFindingProject.Search.Framework
-{
-    public interface PerceptToStateFunction
+namespace PathFindingProject.Search.Framework {
+    public interface IPerceptToStateFunction
     {
 
         /**
@@ -18,6 +17,6 @@ namespace PathFindingProject.Search.Framework
          *            the percept to be transformed to a problem state.
          * @return a problem state derived from the Percept p.
          */
-        Object getState(IPercept p);
+        Object GetState(IPercept p);
     }
 }

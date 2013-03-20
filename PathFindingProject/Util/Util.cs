@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace PathFindingProject.Util
 {
 public class Util {
-	public static const string NO = "No";
-	public static const string YES = "Yes";
+	public const string NO = "No";
+	public const string YES = "Yes";
 	//
 	private static Random _r = new Random();
 
@@ -19,8 +19,8 @@ public class Util {
 	 *            the list the first element is to be extracted from.
 	 * @return the first element of the passed in list.
 	 */
-	public static T first(List<T> l) {
-		return l.get(0);
+	public static T first<T>(List<T> l) {
+		return l[0];
 	}
 
 	/**
@@ -31,9 +31,9 @@ public class Util {
 	 * @return a list of all of the elements in the passed in list except for
 	 *         the first element.
 	 */
-	public static List<T> rest(List<T> l) {
-		return l.Skip(1);
-	}
+	//public static List<T> rest(List<T> l) {
+	//	return l.Skip(1);
+	//}
 
 	/**
 	 * Create a Map<K, V> with the passed in keys having their values
@@ -45,15 +45,15 @@ public class Util {
 	 *            the value to be associated with each of the maps keys.
 	 * @return a map with the passed in keys initialized to value.
 	 */
-    public static <K, V> Map<K, V> create(Collection<K> keys, V value) {
-        Map<K, V> map = new LinkedHashMap<K, V>();
+	public static Dictionary<K, V> Create<K,V>(ICollection<K> keys, V value) {
+		Dictionary<K, V> map = new Dictionary<K, V>();
 
-        for (K k : keys) {
-            map.put(k, value);
-        }
+		foreach (K k in keys) {
+			map[k] = value;
+		}
 
-        return map;
-    }
+		return map;
+	}
 
 	/**
 	 * Randomly select an element from a list.
@@ -65,8 +65,8 @@ public class Util {
 	 *            randomly.
 	 * @return a randomly selected element from l.
 	 */
-	public static T selectRandomlyFromList(List<T> l) {
-		return l.[_r.Next(l.Count)];
+	public static T selectRandomlyFromList<T>(List<T> l) {
+		return l[_r.Next(l.Count)];
 	}
 
 	public static bool randomBoolean() {
@@ -120,24 +120,24 @@ public class Util {
 		return min(min(i, j), k);
 	}
 
-	public static T mode(List<T> l) {
-		Dictionary<T, int> hash = new Dictionary<T, int>();
-		foreach (T obj in l) {
-			if (hash.ContainsKey(obj)) {
-				hash[obj] = hash[obj].intValue() + 1;
-			} else {
-				hash[obj] = 1;
-			}
-		}
+	//public static T mode(List<T> l) {
+	//	Dictionary<T, int> hash = new Dictionary<T, int>();
+	//	foreach (T obj in l) {
+	//		if (hash.ContainsKey(obj)) {
+	//			hash[obj] = hash[obj].intValue() + 1;
+	//		} else {
+	//			hash[obj] = 1;
+	//		}
+	//	}
 
-		T maxkey = hash.Keys.FirstOrDefault();
-		foreach (T key in hash.Keys) {
-			if (hash.get(key) > hash.get(maxkey)) {
-				maxkey = key;
-			}
-		}
-		return maxkey;
-	}
+	//	T maxkey = hash.Keys.FirstOrDefault();
+	//	foreach (T key in hash.Keys) {
+	//		if (hash.get(key) > hash.get(maxkey)) {
+	//			maxkey = key;
+	//		}
+	//	}
+	//	return maxkey;
+	//}
 
 	public static string[] yesno() {
 		return new string[] { YES, NO };
@@ -155,11 +155,11 @@ public class Util {
 		return total;
 	}
 
-	public static <T> List<T> removeFrom(List<T> list, T member) {
-		List<T> newList = new List<T>(list);
-		newList.Remove(member);
-		return newList;
-	}
+	//public static <T> List<T> removeFrom(List<T> list, T member) {
+	//	List<T> newList = new List<T>(list);
+	//	newList.Remove(member);
+	//	return newList;
+	//}
 
     //public static <T extends Number> double sumOfSquares(List<T> list) {
     //    double accum = 0;

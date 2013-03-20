@@ -8,24 +8,23 @@ using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Environment.Map
 {
-    public abstract class AdaptableHeuristicFunction : IHeuristicFunction,
-		    ICloneable {
+    public abstract class AdaptableHeuristicFunction : IHeuristicFunction {
 	    /** The Current Goal. */
-	    protected Object goal;
+	    protected Object m_goal;
 	    /** The map to be used for distance to goal estimates. */
-	    protected Map map;
+	    protected IMap m_map;
 
 	    /**
 	     * Modifies goal and map information and returns the modified heuristic
 	     * function.
 	     */
-	    public AdaptableHeuristicFunction adaptToGoal(Object goal, Map map) {
-		    this.goal = goal;
-		    this.map = map;
-		    return this;
+	    public AdaptableHeuristicFunction AdaptToGoal(Object goal, IMap map) {
+		    m_goal = goal;
+		    m_map = map;
+
+			return this;
 	    }
 
-	    // when subclassing: Don't forget to implement the most important method
-	    // public double h(Object state)
+		public abstract double Calculate( object state ); 
     }
 }

@@ -97,7 +97,7 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	 *         there is no edge between them.
 	 */
 	public EdgeLabelType Get(VertexLabelType from, VertexLabelType to) {
-        EdgeLabelType ret;
+        EdgeLabelType ret = default(EdgeLabelType);
 
         if (m_globalEdgeLookup.ContainsKey(from)) {
             Dictionary<VertexLabelType, EdgeLabelType> localEdgeLookup =

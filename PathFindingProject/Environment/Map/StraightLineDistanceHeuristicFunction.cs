@@ -4,29 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using PathFindingProject.Util.Datastructure;
+using PathFindingProject.Search.Domain;
 
 namespace PathFindingProject.Environment.Map {
-    public class StraightLineDistanceHeuristicFunction : AdaptableHeuristicFunction
-    {
+	public class StraightLineDistanceHeuristicFunction : AdaptableHeuristicFunction {
 
-        public StraightLineDistanceHeuristicFunction(Object goal, Map map)
-        {
-            this.goal = goal;
-            this.map = map;
-        }
+		public StraightLineDistanceHeuristicFunction( object goal, IMap map ) {
+			m_goal = goal;
+			m_map = map;
+		}
 
-        public double h(Object state)
-        {
-            double result = 0.0;
-            Point2D pt1 = map.getPosition((String)state);
-            Point2D pt2 = map.getPosition((String)goal);
-            if (pt1 != null && pt2 != null)
-            {
-                result = pt1.distance(pt2);
-            }
-            return result;
-        }
-    }
+		public override double Calculate( object state ) {
+			double result = 0.0;
+			Point pt1 = m_map.GetPosition( ( String )state );
+			Point pt2 = m_map.GetPosition( ( String )m_goal );
+			if( pt1 != null && pt2 != null ) {
+				result = pt1.DistanceTo( pt2 );
+			}
+			return result;
+		}
+	}
 }
 

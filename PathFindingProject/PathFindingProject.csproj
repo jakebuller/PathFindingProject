@@ -46,6 +46,7 @@
     <Compile Include="Agent\DynamicPercept.cs" />
     <Compile Include="Agent\IAction.cs" />
     <Compile Include="Agent\IPercept.cs" />
+    <Compile Include="Agent\MoveToAction.cs" />
     <Compile Include="Agent\NoOpAction.cs" />
     <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
     <Compile Include="Environment\Map\AdaptableHeuristicFunction.cs" />
@@ -83,7 +84,6 @@
     <Compile Include="Search\Informed\AStarSearchEvaluationFunction.cs" />
     <Compile Include="Search\Informed\BestFirstSearch.cs" />
     <Compile Include="Util\Datastructure\LabeledGraph.cs" />
-    <Compile Include="Util\Datastructure\Point2D.cs" />
     <Compile Include="Util\Util.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 
 namespace PathFindingProject.Search.Domain {
 	public class Point {
@@ -9,6 +9,14 @@ namespace PathFindingProject.Search.Domain {
 		public Point( int x, int y ) {
 			XCoord = x;
 			YCoord = y;
+		}
+
+		public double DistanceTo( Point other ) {
+			double result = 
+				Math.Pow( other.XCoord - XCoord, 2 ) + 
+				Math.Pow(other.YCoord - YCoord, 2 );
+
+            return Math.Sqrt(result);
 		}
 	}
 }

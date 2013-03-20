@@ -13,13 +13,13 @@ namespace PathFindingProject {
         private static Point Rendevous;
         private static int[,] Map;
 
-		public static void Main( string[] args ) {
+		public static int Main( string[] args ) {
 			string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_1.txt" );
             string[] coords;  
             // Display the file contents by using a foreach loop.
             if (lines.Length < 6) {
                 //Insufficient parameters
-				Environment.Exit( 1 );
+				return -1;
             }           
             //get the room dimensions
 			string[] dims = lines[0].Split( ' ' );
@@ -58,8 +58,9 @@ namespace PathFindingProject {
             // Keep the console window open in debug mode.
 #if DEBUG
 			Console.WriteLine( "Press any key to exit." );
-#endif
             System.Console.ReadKey();
+#endif
+			return 0;
 		}
 	}
 

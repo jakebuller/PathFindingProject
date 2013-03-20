@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PathFindingProject.Agent
-{
-    class IPercept
-    {
-    }
+namespace PathFindingProject.Agent {
+	public interface IPercept {
+	}
 }
