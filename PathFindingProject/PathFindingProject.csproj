@@ -49,7 +49,7 @@
     <Compile Include="Search\Domain\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Search\Domain\DirectPathHeursticFunction.cs" />
-    <Compile Include="Search\Domain\SimpleStepCostFunctin.cs" />
+    <Compile Include="Search\Domain\SimpleStepCostFunction.cs" />
     <Compile Include="Search\Domain\GoalTest.cs" />
     <Compile Include="Search\Framework\IHeuristicFunction.cs" />
     <Compile Include="Search\Framework\PathCostFunction.cs" />
