@@ -5,23 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PathFindingProject.Util.Datastructure {
-public class LabeledGraph<VertexLabelType, EdgeLabelType> {
+public class LabeledGraph<K, V> {
 
 	/**
 	 * Lookup for edge label information. Contains an entry for every vertex
 	 * label.
 	 */
 	private readonly Dictionary<
-            VertexLabelType, 
-            Dictionary<VertexLabelType, EdgeLabelType>
+            K, 
+            Dictionary<K, V>
         > m_globalEdgeLookup;
 	/** List of the labels of all vertices within the graph. */
-	private readonly List<VertexLabelType> m_vertexLabels;
+	private readonly List<K> m_vertexLabels;
 
 	/** Creates a new empty graph. */
 	public LabeledGraph() {
-        m_globalEdgeLookup = new Dictionary<VertexLabelType, Dictionary<VertexLabelType, EdgeLabelType>>();
-        m_vertexLabels = new List<VertexLabelType>();
+        m_globalEdgeLookup = new Dictionary<K, Dictionary<K, V>>();
+        m_vertexLabels = new List<K>();
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	 * @param v
 	 *            the vertex to add
 	 */
-	public void AddVertex(VertexLabelType v) {
+	public void AddVertex(K v) {
 		CheckForNewVertex(v);
 	}
 
@@ -46,19 +46,19 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	 * @param el
 	 *            an edge label
 	 */
-	public void Set(VertexLabelType from, VertexLabelType to, EdgeLabelType el) {
-        Dictionary<VertexLabelType, EdgeLabelType> localEdgeLookup = CheckForNewVertex(from);
+	public void Set(K from, K to, V el) {
+        Dictionary<K, V> localEdgeLookup = CheckForNewVertex(from);
 		localEdgeLookup[to] = el;
 		CheckForNewVertex(to);
 	}
 
 	/** Handles new vertices. */
-	private Dictionary<VertexLabelType, EdgeLabelType> CheckForNewVertex(
-			VertexLabelType v
+	private Dictionary<K, V> CheckForNewVertex(
+			K v
     ) {
-        Dictionary<VertexLabelType, EdgeLabelType> result;
+        Dictionary<K, V> result;
         if (!m_globalEdgeLookup.ContainsKey(v)) {
-            result = new Dictionary<VertexLabelType, EdgeLabelType>();
+            result = new Dictionary<K, V>();
             m_globalEdgeLookup[v] = result;
             m_vertexLabels.Add(v);
         }
@@ -76,9 +76,9 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	 * @param to
 	 *            the second vertex of the edge
 	 */
-	public void Remove(VertexLabelType from, VertexLabelType to) {
+	public void Remove(K from, K to) {
         if (m_globalEdgeLookup.ContainsKey(from)) {
-            Dictionary<VertexLabelType, EdgeLabelType> localEdgeLookup =
+            Dictionary<K, V> localEdgeLookup =
                 m_globalEdgeLookup[from];
             localEdgeLookup.Remove(to);
         }
@@ -96,11 +96,11 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	 * @return the label of the edge between the specified vertices, or null if
 	 *         there is no edge between them.
 	 */
-	public EdgeLabelType Get(VertexLabelType from, VertexLabelType to) {
-        EdgeLabelType ret = default(EdgeLabelType);
+	public V Get(K from, K to) {
+        V ret = default(V);
 
         if (m_globalEdgeLookup.ContainsKey(from)) {
-            Dictionary<VertexLabelType, EdgeLabelType> localEdgeLookup =
+            Dictionary<K, V> localEdgeLookup =
                 m_globalEdgeLookup[from];
 
             ret = localEdgeLookup[to];
@@ -113,8 +113,8 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	 * Returns the labels of those vertices which can be obtained by following
 	 * the edges starting at the specified vertex.
 	 */
-	public List<VertexLabelType> GetSuccessors(VertexLabelType v) {
-		List<VertexLabelType> result = new List<VertexLabelType>();
+	public List<K> GetSuccessors(K v) {
+		List<K> result = new List<K>();
         if (m_globalEdgeLookup.ContainsKey(v)) {
             var localEdgeLookup = m_globalEdgeLookup[v];
             result.AddRange(localEdgeLookup.Keys);
@@ -124,12 +124,12 @@ public class LabeledGraph<VertexLabelType, EdgeLabelType> {
 	}
 
 	/** Returns the labels of all vertices within the graph. */
-	public List<VertexLabelType> GetVertexLabels() {
+	public List<K> GetVertexLabels() {
 		return m_vertexLabels;
 	}
 
 	/** Checks whether the given label is the label of one of the vertices. */
-	public bool IsVertexLabel(VertexLabelType v) {
+	public bool IsVertexLabel(K v) {
         return m_globalEdgeLookup.ContainsKey(v);
 	}
 
