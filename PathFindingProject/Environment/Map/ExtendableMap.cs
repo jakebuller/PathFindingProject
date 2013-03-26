@@ -103,9 +103,9 @@ namespace PathFindingProject.Environment.Map {
 		 * Defines the position of a location as with respect to an orthogonal
 		 * coordinate system.
 		 */
-		//public void SetPosition( string loc, double x, double y ) {
-		//	m_locationPositions[loc] = new Point( x, y );
-		//}
+		public void SetPosition( string loc, int x, int y ) {
+			m_locationPositions[loc] = new Point( x, y );
+		}
 
 		/**
 		 * Defines the position of a location within the map. Using this method, one
