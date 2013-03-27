@@ -19,7 +19,7 @@ namespace PathFindingProject {
 		private static double Distance = 1;
 
         public static int Main( string[] args ) {
-            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_1.txt" );
+            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_2.txt" );
             if( lines.Length < 6 ) {
                 //Insufficient parameters
                 return -1;
@@ -69,6 +69,7 @@ namespace PathFindingProject {
 			);
 			IHeuristicFunction hf = new DirectPathHeuristicFunction( Rendevous );
 			ISearch search = new AStarSearch( new GraphSearch(), hf );
+
             return 0;
         }
 
