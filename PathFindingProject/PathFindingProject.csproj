@@ -73,7 +73,6 @@
     <Compile Include="Search\Framework\ISearch.cs" />
     <Compile Include="Search\Framework\ISoluctionChecker.cs" />
     <Compile Include="Search\Framework\IStepCostFunction.cs" />
-    <Compile Include="Search\Framework\Metrics.cs" />
     <Compile Include="Search\Framework\Node.cs" />
     <Compile Include="Search\Framework\NodeComparer.cs" />
     <Compile Include="Search\Framework\NodeExpander.cs" />

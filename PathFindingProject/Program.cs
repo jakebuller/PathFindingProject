@@ -7,6 +7,7 @@ using PathFindingProject.Environment.Map;
 using PathFindingProject.Search.Domain;
 using PathFindingProject.Search.Framework;
 using PathFindingProject.Search.Informed;
+using PathFindingProject.Agent;
 
 namespace PathFindingProject {
     public class Program {
@@ -56,10 +57,7 @@ namespace PathFindingProject {
             Console.WriteLine( "Rendevous at x: " + Rendevous.XCoord + " y: " + Rendevous.YCoord );
             Console.WriteLine( "Robots: " + Robots.Count );
             // Keep the console window open in debug mode.
-#if DEBUG
-            Console.WriteLine( "Press any key to exit." );
-            System.Console.ReadKey();
-#endif
+
 			Problem problem = new Problem( 
 				"0,1",
 				new StringStateActionsFunction( ProblemMap ),
@@ -67,9 +65,21 @@ namespace PathFindingProject {
 				new StringStateGoalTest( Rendevous ),
 				new SimpleStepCostFunction()
 			);
+            Console.WriteLine( "Run the search" );
 			IHeuristicFunction hf = new DirectPathHeuristicFunction( Rendevous );
-			ISearch search = new AStarSearch( new GraphSearch(), hf );
+			ISearch search = new AStarSearch( problem, hf );
+            IEnumerable<IAction> result = search.Search(problem);
+            Console.WriteLine( result.Count() );
+            foreach(var obj in result){
+                Console.WriteLine( obj.ToString() );
+            }
 
+            Console.WriteLine( "done" );
+
+#if DEBUG
+            Console.WriteLine( "Press any key to exit." );
+            System.Console.ReadKey();
+#endif
             return 0;
         }
 

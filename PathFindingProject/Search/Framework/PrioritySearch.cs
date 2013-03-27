@@ -15,9 +15,5 @@ namespace PathFindingProject.Search.Framework {
 		public IEnumerable<IAction> Search( Problem problem ) {
 			return m_search.Search( problem, new List<Node>() );
 		}
-
-		public Metrics GetMetrics() {
-			return m_search.Metrics;
-		}
 	}
 }
