@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PathFindingProject.Agent {
-	public class MoveToAction : DynamicAction {
-		public static string MoveToLocationAttribute = "location";
+	public class MoveToAction : IAction {
 
-		public MoveToAction( string location ) : base( "moveTo" ) {
-			SetAttribute( MoveToLocationAttribute, location );
+		public string TargetLocation { get; private set; } 
+
+		public MoveToAction( string tarLoc ) {
+			TargetLocation = tarLoc;
 		}
 
-		public string GetToLocation() {
-			return ( string )GetAttribute( MoveToLocationAttribute );
+		public bool IsNoOp() {
+			return false;
 		}
 	}
 }

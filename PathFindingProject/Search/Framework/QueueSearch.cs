@@ -23,11 +23,11 @@ namespace PathFindingProject.Search.Framework {
 			return 0 == result.Count;
 		}
 
-		public Node PeekAtFrontier() {
+		public virtual Node PeekAtFrontier() {
 			return m_frontier.First();
 		}
 
-		public bool RemoveFromFrontier( Node node ) {
+		public virtual bool RemoveFromFrontier( Node node ) {
 			return m_frontier.Remove( node );
 		}
 
@@ -64,7 +64,7 @@ namespace PathFindingProject.Search.Framework {
 			Metrics.Set( PathCostMetric, cost );
 		}
 
-		public IEnumerable<IAction> Search( 
+		public virtual IEnumerable<IAction> Search( 
 			Problem problem,
 			List<Node> frontier
 		) {

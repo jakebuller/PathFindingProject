@@ -58,8 +58,12 @@
     <Compile Include="Search\Domain\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Search\Domain\DirectPathHeuristicFunction.cs" />
+    <Compile Include="Search\Domain\StringStateResultFunction.cs" />
     <Compile Include="Search\Domain\SimpleStepCostFunction.cs" />
     <Compile Include="Search\Domain\GoalTest.cs" />
+    <Compile Include="Search\Domain\StringStateGoalTest.cs" />
+    <Compile Include="Search\Domain\StringStateActionsFunction.cs" />
+    <Compile Include="Search\Framework\GraphSearch.cs" />
     <Compile Include="Search\Framework\IHeuristicFunction.cs" />
     <Compile Include="Search\Framework\PathCostFunction.cs" />
     <Compile Include="Search\Framework\IActionsFunction.cs" />

@@ -3,9 +3,10 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
+using PathFindingProject.Environment.Map;
 using PathFindingProject.Search.Domain;
 using PathFindingProject.Search.Framework;
-using PathFindingProject.Environment.Map;
+using PathFindingProject.Search.Informed;
 
 namespace PathFindingProject {
     public class Program {
@@ -59,6 +60,15 @@ namespace PathFindingProject {
             Console.WriteLine( "Press any key to exit." );
             System.Console.ReadKey();
 #endif
+			Problem problem = new Problem( 
+				"0,1",
+				new StringStateActionsFunction( ProblemMap ),
+				new StringStateResultFunction(),
+				new StringStateGoalTest( Rendevous ),
+				new SimpleStepCostFunction()
+			);
+			IHeuristicFunction hf = new DirectPathHeuristicFunction( Rendevous );
+			ISearch search = new AStarSearch( new GraphSearch(), hf );
             return 0;
         }
 

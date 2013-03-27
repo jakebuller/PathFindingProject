@@ -18,5 +18,26 @@ namespace PathFindingProject.Search.Domain {
 
             return Math.Sqrt(result);
 		}
+
+		public override int GetHashCode() {
+			return XCoord ^ YCoord;
+		}
+
+		public override bool Equals( object obj ) {
+			if( obj == null ) {
+				return false;
+			}
+
+			Point p = obj as Point;
+			return Equals( p );
+		}
+
+		public bool Equals( Point p ) {
+			if( ( object )p == null ) {
+				return false;
+			}
+
+			return XCoord == p.XCoord && YCoord == p.YCoord;
+		}
 	}
 }

@@ -59,7 +59,7 @@ namespace PathFindingProject.Environment.Map {
 				if( a.GetType() == typeof( MoveToAction ) ) {
 					MoveToAction mta = ( MoveToAction )a;
 
-					return mta.GetToLocation();
+					return mta.TargetLocation;
 				}
 
 				// The Action is not understood or is a NoOp
