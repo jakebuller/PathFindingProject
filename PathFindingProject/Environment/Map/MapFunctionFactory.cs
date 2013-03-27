@@ -34,7 +34,7 @@ namespace PathFindingProject.Environment.Map {
 				HashSet<IAction> actions = new HashSet<IAction>();
 				string location = state.ToString();
 
-				List<string> linkedLocations = m_map.GetLocationsLinkedTo( location );
+				List<string> linkedLocations = m_map.GetVerticesLinkedTo( location );
 				foreach( string linkLoc in linkedLocations ) {
 					actions.Add( new MoveToAction( linkLoc ) );
 				}

@@ -21,7 +21,7 @@ namespace PathFindingProject.Search.Domain {
 
 			// states are strings of the form x,y
 			var strState = ( string )state;
-			var neighbours = m_map.GetLocationsLinkedTo( strState );
+			var neighbours = m_map.GetVerticesLinkedTo( strState );
 
 			foreach( var neighbour in neighbours ) {
 				actions.Add( new MoveToAction( neighbour ) );

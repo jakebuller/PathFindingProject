@@ -7,7 +7,6 @@ using PathFindingProject.Environment.Map;
 using PathFindingProject.Search.Domain;
 using PathFindingProject.Search.Framework;
 using PathFindingProject.Search.Informed;
-using PathFindingProject.Agent;
 
 namespace PathFindingProject {
     public class Program {
@@ -47,7 +46,7 @@ namespace PathFindingProject {
 						continue;
 					}
 					var label = i + "," + j;
-					ProblemMap.SetPosition( label, i, j );
+					ProblemMap.AddVertex( label, i, j );
 
 					AddLinks( i, j, label );
                 }
@@ -56,7 +55,6 @@ namespace PathFindingProject {
 
             Console.WriteLine( "Rendevous at x: " + Rendevous.XCoord + " y: " + Rendevous.YCoord );
             Console.WriteLine( "Robots: " + Robots.Count );
-            // Keep the console window open in debug mode.
 
 			Problem problem = new Problem( 
 				"0,1",
@@ -65,27 +63,24 @@ namespace PathFindingProject {
 				new StringStateGoalTest( Rendevous ),
 				new SimpleStepCostFunction()
 			);
-            Console.WriteLine( "Run the search" );
+
 			IHeuristicFunction hf = new DirectPathHeuristicFunction( Rendevous );
-			ISearch search = new AStarSearch( problem, hf );
-            IEnumerable<IAction> result = search.Search(problem);
-            Console.WriteLine( result.Count() );
-            foreach(var obj in result){
-                Console.WriteLine( obj.ToString() );
-            }
+			ISearch search = new AStarSearch( new GraphSearch(), hf );
 
-            Console.WriteLine( "done" );
+			var results = search.Search( problem );
 
+			// Keep the console window open in debug mode.
 #if DEBUG
-            Console.WriteLine( "Press any key to exit." );
-            System.Console.ReadKey();
+			Console.WriteLine( "Press any key to exit." );
+			System.Console.ReadKey();
 #endif
+
             return 0;
         }
 
 		private static void AddLinks( int x, int y, string currentLabel ) {
 			var topNeighbourLabel = x + "," + ( y + 1 );
-			if( ProblemMap.IsLocation( topNeighbourLabel ) ) {
+			if( ProblemMap.IsVertexLabel( topNeighbourLabel ) ) {
 				ProblemMap.AddBidirectionalLink( 
 					currentLabel, 
 					topNeighbourLabel,
@@ -94,7 +89,7 @@ namespace PathFindingProject {
 			}
 
 			var leftNeighbourLabel = ( x - 1 ) + "," + y;
-			if( ProblemMap.IsLocation( leftNeighbourLabel ) ) {
+			if( ProblemMap.IsVertexLabel( leftNeighbourLabel ) ) {
 				ProblemMap.AddBidirectionalLink(
 					currentLabel,
 					leftNeighbourLabel,
@@ -103,7 +98,7 @@ namespace PathFindingProject {
 			}
 
 			var rightNeighbourLabel = ( x + 1 ) + "," + y;
-			if( ProblemMap.IsLocation( rightNeighbourLabel ) ) {
+			if( ProblemMap.IsVertexLabel( rightNeighbourLabel ) ) {
 				ProblemMap.AddBidirectionalLink(
 					currentLabel,
 					rightNeighbourLabel,
@@ -112,7 +107,7 @@ namespace PathFindingProject {
 			}
 
 			var bottomNeighbourLabel = x + "," + ( y - 1 );
-			if( ProblemMap.IsLocation( bottomNeighbourLabel ) ) {
+			if( ProblemMap.IsVertexLabel( bottomNeighbourLabel ) ) {
 				ProblemMap.AddBidirectionalLink(
 					currentLabel,
 					bottomNeighbourLabel,
