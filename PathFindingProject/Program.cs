@@ -20,7 +20,11 @@ namespace PathFindingProject {
 		private static double Distance = 1;
 
         public static int Main( string[] args ) {
-            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotWithObstaclesSmall.txt" );
+			string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_1.txt" );
+			//string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_2.txt" );
+			//string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotMediumSizeWithObstacles.txt" );
+			//string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotNoSolutionSmall.txt" );
+			//string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotWithObstaclesSmall.txt" );
             if( lines.Length < 6 ) {
                 //Insufficient parameters
                 return -1;
@@ -36,24 +40,29 @@ namespace PathFindingProject {
 			// where the floor plan starts in the text file
             int depth = 3 + Robots.Count();
 
-            for( int i = 0; i < DimX; i++ ) {
-                char[] line = lines[i + depth].ToCharArray();
+			for( int j = DimY - 1; j >= 0; j-- ) {
+				char[] line = lines[depth].ToCharArray();
 
-                for( int j = 0; j < line.Length; j++ ) {
-					int pointValue = ( int )Char.GetNumericValue( line[j] );
-					Console.Write( pointValue );
+				for( int i = 0; i < DimX; i++ ) {
+					int pointValue = ( int )Char.GetNumericValue( line[i] );
+
 
 					if( pointValue == 1 ) {
+						Console.Write( " " );
 						continue;
 					}
+
+					Console.Write( pointValue );
 					var label = i + "," + j;
 					ProblemMap.AddVertex( label, i, j );
 
 					AddLinks( i, j, label );
-                }
-                Console.WriteLine();
-            }
+				}
+				Console.WriteLine();
+				depth++;
+			}
 
+			Console.WriteLine();
             Console.WriteLine( "Rendevous at x: " + Rendevous.XCoord + " y: " + Rendevous.YCoord );
             Console.WriteLine( "Robots: " + Robots.Count );
 			var start = string.Format(
@@ -61,6 +70,7 @@ namespace PathFindingProject {
 				Robots.First().XCoord,
 				Robots.First().YCoord
 			);
+			Console.WriteLine( "Start: " + start );
 			Problem problem = new Problem( 
 				start,
 				new ActionsFunction( ProblemMap ),
@@ -152,8 +162,8 @@ namespace PathFindingProject {
 
 		private static void SetRoomDimensions( string line ) {
 			string[] dims = line.Split( ' ' );
-			DimX = int.Parse( dims[0] );
-			DimY = int.Parse( dims[1] );
+			DimY = int.Parse( dims[0] );
+			DimX = int.Parse( dims[1] );
 		}
     }
 
