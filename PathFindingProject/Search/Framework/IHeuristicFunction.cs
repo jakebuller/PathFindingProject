@@ -1,6 +1,6 @@
 ﻿
 namespace PathFindingProject.Search.Framework {
     public interface IHeuristicFunction {
-        double Calculate( object state );
+        double Calculate( string state );
     }
 }

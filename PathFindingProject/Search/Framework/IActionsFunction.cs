@@ -4,6 +4,6 @@ using PathFindingProject.Agent;
 
 namespace PathFindingProject.Search.Framework {
 	public interface IActionsFunction {
-		HashSet<IAction> GetActions( object s );
+		HashSet<IAction> GetActions( string state );
 	}
 }

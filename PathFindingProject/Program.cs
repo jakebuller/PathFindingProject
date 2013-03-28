@@ -57,15 +57,15 @@ namespace PathFindingProject {
             Console.WriteLine( "Robots: " + Robots.Count );
 
 			Problem problem = new Problem( 
-				"0,1",
-				new StringStateActionsFunction( ProblemMap ),
+				"0,0",
+				new ActionsFunction( ProblemMap ),
 				new StringStateResultFunction(),
-				new StringStateGoalTest( Rendevous ),
+				new GoalTest( Rendevous ),
 				new SimpleStepCostFunction()
 			);
 
 			IHeuristicFunction hf = new DirectPathHeuristicFunction( Rendevous );
-			ISearch search = new AStarSearch( new GraphSearch(), hf );
+			ISearch search = new AStarSearch( problem, hf );
 
 			var results = search.Search( problem );
 

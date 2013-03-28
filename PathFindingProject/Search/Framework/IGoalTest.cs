@@ -1,6 +1,6 @@
 ﻿
 namespace PathFindingProject.Search.Framework {
 	public interface IGoalTest {
-		bool IsGoalState( object state );
+		bool IsGoalState( string state );
 	}
 }

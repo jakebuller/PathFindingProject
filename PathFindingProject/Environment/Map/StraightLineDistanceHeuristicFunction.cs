@@ -14,10 +14,10 @@ namespace PathFindingProject.Environment.Map {
 			m_map = map;
 		}
 
-		public override double Calculate( object state ) {
+		public override double Calculate( string state ) {
 			double result = 0.0;
-			Point pt1 = m_map.GetPosition( ( String )state );
-			Point pt2 = m_map.GetPosition( ( String )m_goal );
+			Point pt1 = m_map.GetPosition( ( string )state );
+			Point pt2 = m_map.GetPosition( ( string )m_goal );
 			if( pt1 != null && pt2 != null ) {
 				result = pt1.DistanceTo( pt2 );
 			}

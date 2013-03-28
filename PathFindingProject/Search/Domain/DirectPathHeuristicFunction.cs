@@ -15,19 +15,10 @@ namespace PathFindingProject.Search.Domain {
 			m_rendevousPoint = rendevousPoint;
 		}
 
-		public double Calculate( object state ) {
-			var map = (int[,])state;
-			double sum = 0;
-
-			for ( int x = 0; x < map.GetLength(0); x++ ) {
-				for ( int y = 0; y < map.GetLength(1); y++ ) {
-					if ( map[x, y] == 2 ) {
-						sum += GetDistanceToRendevous( x, y );
-					}
-				}
-			}
-
-			return sum;
+		public double Calculate( string state ) {
+			var x = int.Parse( state.Split( ',' )[0] );
+			var y = int.Parse( state.Split( ',' )[1] );
+			return GetDistanceToRendevous( x, y );
 		}
 
 		private double GetDistanceToRendevous( int x, int y ) {

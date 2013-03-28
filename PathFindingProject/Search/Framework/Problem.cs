@@ -1,14 +1,14 @@
 ﻿
 namespace PathFindingProject.Search.Framework {
 	public class Problem {
-		private readonly object m_initialState;
+		private readonly string m_initialState;
 		private readonly IActionsFunction m_actionsFunction;
 		private readonly IResultFunction m_resultFunction;
 		private readonly IGoalTest m_goalTest;
 		private readonly IStepCostFunction m_stepCostFunction;
 
 		public Problem(
-			object initialState,
+			string initialState,
 			IActionsFunction actionsFunction,
 			IResultFunction resultFunction,
 			IGoalTest goalTest,
@@ -21,7 +21,7 @@ namespace PathFindingProject.Search.Framework {
 			m_stepCostFunction = stepCostFunction;
 		}
 
-		public object InitialState { 
+		public string InitialState { 
 			get {
 				return m_initialState;
 			}
@@ -51,7 +51,7 @@ namespace PathFindingProject.Search.Framework {
 			}
 		}
 
-		public bool IsGoalState( object state ) {
+		public bool IsGoalState( string state ) {
 			return m_goalTest.IsGoalState( state );
 		}
 	}

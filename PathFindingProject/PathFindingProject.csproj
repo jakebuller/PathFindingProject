@@ -61,8 +61,7 @@
     <Compile Include="Search\Domain\StringStateResultFunction.cs" />
     <Compile Include="Search\Domain\SimpleStepCostFunction.cs" />
     <Compile Include="Search\Domain\GoalTest.cs" />
-    <Compile Include="Search\Domain\StringStateGoalTest.cs" />
-    <Compile Include="Search\Domain\StringStateActionsFunction.cs" />
+    <Compile Include="Search\Domain\ActionsFunction.cs" />
     <Compile Include="Search\Framework\GraphSearch.cs" />
     <Compile Include="Search\Framework\IHeuristicFunction.cs" />
     <Compile Include="Search\Framework\PathCostFunction.cs" />

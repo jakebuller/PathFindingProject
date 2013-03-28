@@ -5,18 +5,18 @@ using PathFindingProject.Agent;
 namespace PathFindingProject.Search.Framework {
 	public class Node {
 		
-		private readonly object m_state;
+		private readonly string m_state;
 		private readonly Node m_parent;
 		private readonly IAction m_action;
 		private readonly double m_pathCost;
 
-		public Node( object state ) {
+		public Node( string state ) {
 			m_state = state;
 			m_pathCost = 0;
 		}
 
 		public Node( 
-			object state,
+			string state,
 			Node parent,
 			IAction action,
 			double stepCost
@@ -27,7 +27,7 @@ namespace PathFindingProject.Search.Framework {
 			m_pathCost = parent.PathCost + stepCost;
 		}
 
-		public object State {
+		public string State {
 			get {
 				return m_state;
 			}

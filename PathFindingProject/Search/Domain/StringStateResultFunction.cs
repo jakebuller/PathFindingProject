@@ -9,7 +9,7 @@ using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Search.Domain {
 	public class StringStateResultFunction : IResultFunction {
-		public object Result( object state, IAction action ) {
+		public string Result( string state, IAction action ) {
 			var moveToAction = action as MoveToAction;
 			if( moveToAction == null ) {
 				return state;

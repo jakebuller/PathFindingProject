@@ -25,6 +25,6 @@ namespace PathFindingProject.Environment.Map
 			return this;
 	    }
 
-		public abstract double Calculate( object state ); 
+		public abstract double Calculate( string state ); 
     }
 }

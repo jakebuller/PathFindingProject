@@ -19,7 +19,7 @@ namespace PathFindingProject.Search.Framework {
 			var stepCostFunction = problem.StepCostFunction;
 
             foreach( var action in actionsFunction.GetActions( node.State ) ) {
-                object successorState = resultFunction.Result(
+                string successorState = resultFunction.Result(
                     node.State,
                     action
                 );
