@@ -9,7 +9,7 @@ using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Search.Domain {
 	public class SimpleStepCostFunction : IStepCostFunction {
-		public double Cost( string state, IAction action, string stateDelta ) {
+		public int Cost( string state, IAction action, string stateDelta ) {
 			return 1;
 		}
 	}

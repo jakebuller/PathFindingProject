@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 
+using PathFindingProject.Agent;
 using PathFindingProject.Environment.Map;
 using PathFindingProject.Search.Domain;
 using PathFindingProject.Search.Framework;
@@ -19,7 +20,7 @@ namespace PathFindingProject {
 		private static double Distance = 1;
 
         public static int Main( string[] args ) {
-            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_2.txt" );
+            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotWithObstaclesSmall.txt" );
             if( lines.Length < 6 ) {
                 //Insufficient parameters
                 return -1;
@@ -55,9 +56,13 @@ namespace PathFindingProject {
 
             Console.WriteLine( "Rendevous at x: " + Rendevous.XCoord + " y: " + Rendevous.YCoord );
             Console.WriteLine( "Robots: " + Robots.Count );
-
+			var start = string.Format(
+				"{0},{1}",
+				Robots.First().XCoord,
+				Robots.First().YCoord
+			);
 			Problem problem = new Problem( 
-				"0,0",
+				start,
 				new ActionsFunction( ProblemMap ),
 				new StringStateResultFunction(),
 				new GoalTest( Rendevous ),
@@ -70,6 +75,16 @@ namespace PathFindingProject {
 			var results = search.Search( problem );
 
 			// Keep the console window open in debug mode.
+
+			Console.WriteLine();
+			Console.WriteLine( "Actions:" );
+			Console.WriteLine( string.Format(
+				"\t{0}",
+				string.Join( "\n\t", results.Select( a => {
+					var m = (MoveToAction) a;
+					return m.TargetLocation;
+				} ) )
+			) );
 #if DEBUG
 			Console.WriteLine( "Press any key to exit." );
 			System.Console.ReadKey();

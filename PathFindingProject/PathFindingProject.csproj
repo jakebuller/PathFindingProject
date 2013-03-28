@@ -92,6 +92,9 @@
   <ItemGroup>
     <Content Include="Maps\map_1.txt" />
     <Content Include="Maps\map_2.txt" />
+    <Content Include="Maps\OneRobotMediumSizeWithObstacles.txt" />
+    <Content Include="Maps\OneRobotNoSolutionSmall.txt" />
+    <Content Include="Maps\OneRobotWithObstaclesSmall.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

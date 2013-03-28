@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using PathFindingProject.Search.Framework;
@@ -19,13 +20,16 @@ namespace PathFindingProject.Search.Informed {
         }
 
         public virtual IEnumerable<IAction> Search( Problem problem ) {
-            Queue<Node> frontier = new Queue<Node>();
+			List<Node> frontier = new List<Node>();
 			HashSet<Node> explored = new HashSet<Node>();
 
             Node root = new Node( problem.InitialState );
-            frontier.Enqueue( root );
+            frontier.Add( root );
             while( frontier.Count > 0 ) {
-				Node nodeToExpand = frontier.Dequeue();
+				Node nodeToExpand = frontier.First();
+				frontier.Remove( nodeToExpand );
+
+				Console.WriteLine( "From frontier: " + nodeToExpand.State );
 
 				var newNodes = ExpandNode(
 					nodeToExpand,
@@ -33,16 +37,27 @@ namespace PathFindingProject.Search.Informed {
 					problem
 				);
 
+				Console.WriteLine( string.Format(
+					"Found nodes: ({0})", 
+					string.Join( "), (" , newNodes.Select( s => s.State ) ) 
+				) );
+
                 foreach( Node fn in newNodes ) {
-					if( IsGoalState( nodeToExpand.State, problem.GoalTest ) ) {
+					var test = fn.Equals( newNodes.First() );
+					if( IsGoalState( fn.State, problem.GoalTest ) ) {
 
 						return SearchUtils.ActionsFromNodes(
-							nodeToExpand.GetPathFromRoot()
+							fn.GetPathFromRoot()
 						);
 					}
 
-                    frontier.Enqueue( fn );
+                    frontier.Add( fn );
                 }
+				// This could be costly.  Find better alternative later
+				frontier = frontier
+					.OrderBy( n => n.PathCost + n.EstimateCost )
+					.Distinct()
+					.ToList();
             }
 
             return new List<IAction>();
@@ -53,6 +68,7 @@ namespace PathFindingProject.Search.Informed {
 			HashSet<Node> explored, 
 			Problem problem 
 		) {
+			explored.Add( node );
 
 			var childNodes = new List<Node>();
 			var actionsFunction = problem.ActionsFunction;
@@ -65,12 +81,13 @@ namespace PathFindingProject.Search.Informed {
 					action
 				);
 
-				double stepCost = stepCostFunction.Cost(
+				int stepCost = stepCostFunction.Cost(
 					node.State,
 					action,
 					successorState
 				);
-				var child = new Node( successorState, node, action, stepCost );
+				int estimateCost = m_heuristic.Calculate( successorState );
+				var child = new Node( successorState, node, action, stepCost, estimateCost );
 				if( !explored.Contains( child ) ) {
 					childNodes.Add( child );
 				}

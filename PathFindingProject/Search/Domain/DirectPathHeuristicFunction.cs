@@ -15,13 +15,13 @@ namespace PathFindingProject.Search.Domain {
 			m_rendevousPoint = rendevousPoint;
 		}
 
-		public double Calculate( string state ) {
+		public int Calculate( string state ) {
 			var x = int.Parse( state.Split( ',' )[0] );
 			var y = int.Parse( state.Split( ',' )[1] );
 			return GetDistanceToRendevous( x, y );
 		}
 
-		private double GetDistanceToRendevous( int x, int y ) {
+		private int GetDistanceToRendevous( int x, int y ) {
 			int xDiff = Math.Abs( m_rendevousPoint.XCoord - x );
 			int yDiff = Math.Abs( m_rendevousPoint.YCoord - y );
 

@@ -8,7 +8,8 @@ namespace PathFindingProject.Search.Framework {
 		private readonly string m_state;
 		private readonly Node m_parent;
 		private readonly IAction m_action;
-		private readonly double m_pathCost;
+		private readonly int m_pathCost;
+		private readonly int m_estimateCost;
 
 		public Node( string state ) {
 			m_state = state;
@@ -19,12 +20,14 @@ namespace PathFindingProject.Search.Framework {
 			string state,
 			Node parent,
 			IAction action,
-			double stepCost
+			int stepCost,
+			int estimate
 		) {
 			m_state = state;
 			m_parent = parent;
 			m_action = action;
 			m_pathCost = parent.PathCost + stepCost;
+			m_estimateCost = estimate;
 		}
 
 		public string State {
@@ -45,9 +48,15 @@ namespace PathFindingProject.Search.Framework {
 			}
 		}
 
-		public double PathCost {
+		public int PathCost {
 			get {
 				return m_pathCost;
+			}
+		}
+
+		public int EstimateCost {
+			get {
+				return m_estimateCost;
 			}
 		}
 
@@ -65,6 +74,27 @@ namespace PathFindingProject.Search.Framework {
 
 			path.Push( current );
 			return path;
+		}
+
+		public override bool Equals( object obj ) {
+			if( obj == null ) {
+				return false;
+			}
+
+			Node n = obj as Node;
+			return Equals( n );
+		}
+
+		public bool Equals( Node n ) {
+			if( ( object )n == null ) {
+				return false;
+			}
+
+			return m_state == n.State;
+		}
+
+		public override int GetHashCode() {
+			return m_state.GetHashCode();
 		}
 
 		public override string ToString() {
