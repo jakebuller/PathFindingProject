@@ -22,12 +22,14 @@ namespace PathFindingProject {
         private static Stopwatch stopWatch = new Stopwatch();
 
         public static int Main( string[] args ) {
+            Console.WriteLine( "building map..." );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_1.txt" );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_2.txt" );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotMediumSizeWithObstacles.txt" );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotNoSolutionSmall.txt" );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotWithObstaclesSmall.txt" );
-            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotLargeMapWithObstacles.txt" );
+            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotLargeMapWithObstacles.txt" );
+            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotVeryLargeMapNoObstacles.txt" );
             if( lines.Length < 6 ) {
                 //Insufficient parameters
                 return -1;
@@ -51,17 +53,17 @@ namespace PathFindingProject {
 
 
                     if( pointValue == 1 ) {
-                        Console.Write( " " );
+                        //Console.Write( " " );
                         continue;
                     }
 
-                    Console.Write( pointValue );
+                    //Console.Write( pointValue );
                     var label = i + "," + j;
                     ProblemMap.AddVertex( label, i, j );
 
                     AddLinks( i, j, label );
                 }
-                Console.WriteLine();
+                //Console.WriteLine();
                 depth++;
             }
 
@@ -88,7 +90,7 @@ namespace PathFindingProject {
             stopWatch.Start();                        
 
             stopWatch = Stopwatch.StartNew();
-            
+            Console.WriteLine( "starting search..." );
             var results = search.Search( problem );
 
             stopWatch.Stop();
