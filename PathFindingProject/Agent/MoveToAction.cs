@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PathFindingProject.Agent {
-	public class MoveToAction : IAction {
+    public class MoveToAction : IAction {
 
-		public string TargetLocation { get; private set; } 
+        public string TargetLocation { get; private set; }
 
-		public MoveToAction( string tarLoc ) {
-			TargetLocation = tarLoc;
-		}
+        public MoveToAction( string tarLoc ) {
+            TargetLocation = tarLoc;
+        }
 
-		public bool IsNoOp() {
-			return false;
-		}
-	}
+        public bool IsNoOp() {
+            return false;
+        }
+    }
 }

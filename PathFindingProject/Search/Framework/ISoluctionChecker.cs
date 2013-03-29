@@ -3,7 +3,7 @@
 using PathFindingProject.Agent;
 
 namespace PathFindingProject.Search.Framework {
-	public interface ISoluctionChecker : IGoalTest{
-		bool IsAcceptableSolution( IEnumerable<IAction> actions, object goal );
-	}
+    public interface ISoluctionChecker : IGoalTest {
+        bool IsAcceptableSolution( IEnumerable<IAction> actions, object goal );
+    }
 }

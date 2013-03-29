@@ -42,19 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent\DynamicAction.cs" />
-    <Compile Include="Agent\DynamicPercept.cs" />
     <Compile Include="Agent\IAction.cs" />
-    <Compile Include="Agent\IPercept.cs" />
     <Compile Include="Agent\MoveToAction.cs" />
-    <Compile Include="Agent\NoOpAction.cs" />
     <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
-    <Compile Include="Environment\Map\AdaptableHeuristicFunction.cs" />
     <Compile Include="Environment\Map\ExtendableMap.cs" />
-    <Compile Include="Environment\Map\Map.cs" />
-    <Compile Include="Environment\Map\MapFunctionFactory.cs" />
-    <Compile Include="Environment\Map\MapStepCostFunction.cs" />
-    <Compile Include="Environment\Map\StraightLineDistanceHeuristicFunction.cs" />
+    <Compile Include="Environment\Map\IMap.cs" />
     <Compile Include="Search\Domain\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Search\Domain\DirectPathHeuristicFunction.cs" />
@@ -62,29 +54,19 @@
     <Compile Include="Search\Domain\SimpleStepCostFunction.cs" />
     <Compile Include="Search\Domain\GoalTest.cs" />
     <Compile Include="Search\Domain\ActionsFunction.cs" />
-    <Compile Include="Search\Framework\GraphSearch.cs" />
     <Compile Include="Search\Framework\IHeuristicFunction.cs" />
-    <Compile Include="Search\Framework\PathCostFunction.cs" />
     <Compile Include="Search\Framework\IActionsFunction.cs" />
-    <Compile Include="Search\Framework\IEvaluationFunction.cs" />
     <Compile Include="Search\Framework\IGoalTest.cs" />
     <Compile Include="Search\Framework\IResultFunction.cs" />
     <Compile Include="Search\Framework\ISearch.cs" />
     <Compile Include="Search\Framework\ISoluctionChecker.cs" />
     <Compile Include="Search\Framework\IStepCostFunction.cs" />
     <Compile Include="Search\Framework\Node.cs" />
-    <Compile Include="Search\Framework\NodeComparer.cs" />
-    <Compile Include="Search\Framework\NodeExpander.cs" />
-    <Compile Include="Search\Framework\IPerceptToStateFunction.cs" />
-    <Compile Include="Search\Framework\PrioritySearch.cs" />
     <Compile Include="Search\Framework\Problem.cs" />
     <Compile Include="FriendAssemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\Framework\QueueSearch.cs" />
     <Compile Include="Search\Framework\SearchUtils.cs" />
     <Compile Include="Search\Informed\AStarSearch.cs" />
-    <Compile Include="Search\Informed\AStarSearchEvaluationFunction.cs" />
-    <Compile Include="Search\Informed\BestFirstSearch.cs" />
     <Compile Include="Util\Datastructure\LabeledGraph.cs" />
     <Compile Include="Util\Util.cs" />
   </ItemGroup>
@@ -95,6 +77,7 @@
     <Content Include="Maps\OneRobotMediumSizeWithObstacles.txt" />
     <Content Include="Maps\OneRobotNoSolutionSmall.txt" />
     <Content Include="Maps\OneRobotWithObstaclesSmall.txt" />
+    <Content Include="Maps\OneRobotLargeMapWithObstacles.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

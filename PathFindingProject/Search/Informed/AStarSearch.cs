@@ -29,7 +29,7 @@ namespace PathFindingProject.Search.Informed {
 				Node nodeToExpand = frontier.First();
 				frontier.Remove( nodeToExpand );
 
-				Console.WriteLine( "From frontier: " + nodeToExpand.State );
+				//Console.WriteLine( "From frontier: " + nodeToExpand.State );
 
 				var newNodes = ExpandNode(
 					nodeToExpand,
@@ -37,11 +37,11 @@ namespace PathFindingProject.Search.Informed {
 					problem
 				);
 
-				Console.WriteLine( string.Format(
+				/*Console.WriteLine( string.Format(
 					"Found nodes: ({0})", 
 					string.Join( "), (" , newNodes.Select( s => s.State ) ) 
 				) );
-
+                */
                 foreach( Node fn in newNodes ) {
 					var test = fn.Equals( newNodes.First() );
 					if( IsGoalState( fn.State, problem.GoalTest ) ) {
