@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 
 using PathFindingProject.Agent;
 using PathFindingProject.Environment.Map;
@@ -20,8 +21,10 @@ namespace PathFindingProject {
         private static ExtendableMap ProblemMap = new ExtendableMap();
         private static double Distance = 1;
         private static Stopwatch stopWatch = new Stopwatch();
+        private static Stopwatch execWatch = new Stopwatch();
 
         public static int Main( string[] args ) {
+            execWatch = Stopwatch.StartNew();
             Console.WriteLine( "building map..." );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_1.txt" );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_2.txt" );
@@ -31,7 +34,8 @@ namespace PathFindingProject {
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotLargeMapWithObstacles.txt" );
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotVeryLargeMapNoObstacles.txt" );
 
-            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/TwoRobotsVeryLargeMapNoObstacles.txt" );
+            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/FourRobotsVeryLargeMapNoObstacles.txt" );
+            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/TwoRobotsVeryLargeMapNoObstacles.txt" );            
             //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/ThreeRobots30x30.txt" );
             if( lines.Length < 6 ) {
                 //Insufficient parameters
@@ -71,7 +75,7 @@ namespace PathFindingProject {
             }
 
             Console.WriteLine("Solving for muliple robots sequentially");
-            foreach( Point Robot in Robots ) {
+            Parallel.ForEach(Robots, Robot=> {
                 //Console.WriteLine();
                 //Console.WriteLine( "Rendevous at x: " + Rendevous.XCoord + " y: " + Rendevous.YCoord );
                 //Console.WriteLine( "Robots: " + Robots.Count );                
@@ -117,7 +121,18 @@ namespace PathFindingProject {
                         return m.TargetLocation;
                     } ) )
                 ) );
-            }
+            });
+
+
+            execWatch.Stop();
+            // Get the elapsed time as a TimeSpan value.
+            TimeSpan t = execWatch.Elapsed;
+
+            // Format and display the TimeSpan value. 
+            string elapsed = String.Format( "{0:00}:{1:00}:{2:00}.{3:00}.{4:00}",
+                t.Hours, t.Minutes, t.Seconds,
+                t.Milliseconds / 10, t.Milliseconds );
+            Console.WriteLine( "RunTime " + elapsed );
 #if DEBUG
             Console.WriteLine( "Press any key to exit." );
             System.Console.ReadKey();
