@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-
-using PathFindingProject.Search.Framework;
 using PathFindingProject.Agent;
+using PathFindingProject.Search.Framework;
 
 namespace PathFindingProject.Search.Informed {
     public class AStarSearch : ISearch {
@@ -29,30 +27,22 @@ namespace PathFindingProject.Search.Informed {
 				Node nodeToExpand = frontier.First();
 				frontier.Remove( nodeToExpand );
 
-				//Console.WriteLine( "From frontier: " + nodeToExpand.State );
-
 				var newNodes = ExpandNode(
 					nodeToExpand,
 					explored,
 					problem
 				);
 
-				/*Console.WriteLine( string.Format(
-					"Found nodes: ({0})", 
-					string.Join( "), (" , newNodes.Select( s => s.State ) ) 
-				) );
-                */
                 foreach( Node fn in newNodes ) {
 					var test = fn.Equals( newNodes.First() );
 					if( IsGoalState( fn.State, problem.GoalTest ) ) {
 
-						return SearchUtils.ActionsFromNodes(
-							fn.GetPathFromRoot()
-						);
+						return ActionsFromNodes( fn.GetPathFromRoot() );
 					}
 
                     frontier.Add( fn );
                 }
+
 				// This could be costly.  Find better alternative later
 				frontier = frontier
 					.OrderBy( n => n.PathCost + n.EstimateCost )
@@ -87,7 +77,13 @@ namespace PathFindingProject.Search.Informed {
 					successorState
 				);
 				int estimateCost = m_heuristic.Calculate( successorState );
-				var child = new Node( successorState, node, action, stepCost, estimateCost );
+				var child = new Node( 
+					successorState,
+					node,
+					action,
+					stepCost,
+					estimateCost
+				);
 				if( !explored.Contains( child ) ) {
 					childNodes.Add( child );
 				}
@@ -99,7 +95,25 @@ namespace PathFindingProject.Search.Informed {
 		private bool IsGoalState( string state, IGoalTest goalTest ) {
 			return goalTest.IsGoalState( state );
 		}
-        
+
+		private List<IAction> ActionsFromNodes( IEnumerable<Node> nodeList ) {
+			var actions = new List<IAction>();
+			if( 0 == nodeList.Count() ) {
+				// I'm at the root node, this indicates I started at the
+				// Goal node, therefore just return a NoOp
+				actions.Add( null );
+			} else {
+				// ignore the root node this has no action
+				// hence index starts from 1 not zero
+				foreach( var node in nodeList ) {
+					if( node.Action == null ) {
+						continue;
+					}
+					actions.Add( node.Action );
+				}
+			}
+			return actions;
+		}        
     }
 
 }

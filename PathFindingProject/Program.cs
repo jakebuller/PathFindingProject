@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
 using PathFindingProject.Agent;
 using PathFindingProject.Environment.Map;
 using PathFindingProject.Search.Domain;
@@ -24,22 +23,23 @@ namespace PathFindingProject {
         private static Stopwatch execWatch = new Stopwatch();
 
         public static int Main( string[] args ) {
+			if( args.Length != 1 ) {
+				ShowParams();
+				return -1;
+			}
+			var path = args[0];
+			if( !File.Exists( path ) ) {
+				ShowParams();
+				ShowFileSetup();
+				return -2;
+			}
             execWatch = Stopwatch.StartNew();
             Console.WriteLine( "building map..." );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_1.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/map_2.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotMediumSizeWithObstacles.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotNoSolutionSmall.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotWithObstaclesSmall.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotLargeMapWithObstacles.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/OneRobotVeryLargeMapNoObstacles.txt" );
 
-            string[] lines = System.IO.File.ReadAllLines( @"../../Maps/FourRobotsVeryLargeMapNoObstacles.txt" );
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/TwoRobotsVeryLargeMapNoObstacles.txt" );            
-            //string[] lines = System.IO.File.ReadAllLines( @"../../Maps/ThreeRobots30x30.txt" );
+            string[] lines = File.ReadAllLines( path );
             if( lines.Length < 6 ) {
-                //Insufficient parameters
-                return -1;
+				ShowFileSetup();
+                return -3;
             }
             // first line has the x and then y size
             SetRoomDimensions( lines[0] );
@@ -75,20 +75,16 @@ namespace PathFindingProject {
             }
 
             Console.WriteLine("Solving for muliple robots sequentially");
-            Parallel.ForEach(Robots, Robot=> {
-                //Console.WriteLine();
-                //Console.WriteLine( "Rendevous at x: " + Rendevous.XCoord + " y: " + Rendevous.YCoord );
-                //Console.WriteLine( "Robots: " + Robots.Count );                
+            Parallel.ForEach(Robots, Robot=> {             
                 var start = string.Format(
                     "{0},{1}",
                     Robot.XCoord,
                     Robot.YCoord
                 );
-                //Console.WriteLine( "Start: " + start );
                 Problem problem = new Problem(
                     start,
                     new ActionsFunction( ProblemMap ),
-                    new StringStateResultFunction(),
+                    new ResultFunction(),
                     new GoalTest( Rendevous ),
                     new SimpleStepCostFunction()
                 );
@@ -97,7 +93,11 @@ namespace PathFindingProject {
                 ISearch search = new AStarSearch( problem, hf );
                
                 stopWatch = Stopwatch.StartNew();
-                Console.WriteLine( "starting search for robot with start at x: " + Robot.XCoord  + " y: " + Robot.YCoord + "..." );
+                Console.WriteLine( string.Format(
+					"Starting search for robot with start at x: {0} and y: {1} ...",
+					Robot.XCoord,
+					Robot.YCoord
+				) );
                 var results = search.Search( problem );
 
                 stopWatch.Stop();
@@ -105,14 +105,15 @@ namespace PathFindingProject {
                 TimeSpan ts = stopWatch.Elapsed;
 
                 // Format and display the TimeSpan value. 
-                string elapsedTime = String.Format( "{0:00}:{1:00}:{2:00}.{3:00}.{4:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10 , ts.Milliseconds);
+                string elapsedTime = string.Format( 
+					"{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, 
+					ts.Minutes, 
+					ts.Seconds,
+                    ts.Milliseconds
+				);
                 Console.WriteLine( "RunTime " + elapsedTime );
 
-                // Keep the //Console window open in debug mode.
-
-                //Console.WriteLine();
                 Console.WriteLine( "Actions:" );
                 Console.WriteLine( string.Format(
                     "\t{0}",
@@ -129,9 +130,13 @@ namespace PathFindingProject {
             TimeSpan t = execWatch.Elapsed;
 
             // Format and display the TimeSpan value. 
-            string elapsed = String.Format( "{0:00}:{1:00}:{2:00}.{3:00}.{4:00}",
-                t.Hours, t.Minutes, t.Seconds,
-                t.Milliseconds / 10, t.Milliseconds );
+            string elapsed = string.Format( 
+				"{0:00}:{1:00}:{2:00}.{3:00}.{4:00}",
+                t.Hours,
+				t.Minutes,
+				t.Seconds,
+                t.Milliseconds
+			);
             Console.WriteLine( "RunTime " + elapsed );
 #if DEBUG
             Console.WriteLine( "Press any key to exit." );
@@ -181,7 +186,10 @@ namespace PathFindingProject {
 
         private static void SetRendevousPoint( string line ) {
             string[] coords = line.Split( ' ' );
-            Rendevous = new Point( int.Parse( coords[0] ), int.Parse( coords[1] ) );
+            Rendevous = new Point( 
+				int.Parse( coords[0] ),
+				int.Parse( coords[1] ) 
+			);
         }
 
         private static void SetRobots( string[] lines ) {
@@ -203,6 +211,29 @@ namespace PathFindingProject {
             DimY = int.Parse( dims[0] );
             DimX = int.Parse( dims[1] );
         }
-    }
 
+		private static void ShowParams() {
+			Console.WriteLine( "Expected parameter is a file path to the input file" );
+		}
+
+		private static void ShowFileSetup() {
+			Console.WriteLine( 
+				"Input file should be setup in the following manner:"
+			);
+			Console.WriteLine( "Room dimensions as 'XMax YMax'" );
+			Console.WriteLine( "Number of robots in the room" );
+			Console.WriteLine( 
+				"A line stating the starting point of each robot, as 'X Y'"
+			);
+			Console.WriteLine( 
+				"The coordinates of the rendezvous point, as 'X Y'" );
+			Console.WriteLine( 
+				"Room points (0, YMax - 1), (1, YMax - 1), ... , (XMax, YMax - 1)"
+			);
+			Console.WriteLine("...");
+			Console.WriteLine(
+				"Room points (0, 0), (1, 0), ... , (XMax, 0)"
+			);
+		}
+    }
 }

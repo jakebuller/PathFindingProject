@@ -1,9 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathFindingProject", "PathFindingProject\PathFindingProject.csproj", "{79838A01-7100-466A-9B4D-F4D95B2EEBC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathFindingProjectTests", "PathFindingProjectTests\PathFindingProjectTests.csproj", "{FC83C0FB-A06C-4778-B86B-04A877A8AF8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{EF936A46-07CD-416A-81B7-8B235E14CE86}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,10 +21,6 @@ Global
 		{79838A01-7100-466A-9B4D-F4D95B2EEBC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79838A01-7100-466A-9B4D-F4D95B2EEBC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79838A01-7100-466A-9B4D-F4D95B2EEBC1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC83C0FB-A06C-4778-B86B-04A877A8AF8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC83C0FB-A06C-4778-B86B-04A877A8AF8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC83C0FB-A06C-4778-B86B-04A877A8AF8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC83C0FB-A06C-4778-B86B-04A877A8AF8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,13 +44,12 @@
   <ItemGroup>
     <Compile Include="Agent\IAction.cs" />
     <Compile Include="Agent\MoveToAction.cs" />
-    <Compile Include="Agent\ObjectWithDynamicAttributes.cs" />
     <Compile Include="Environment\Map\ExtendableMap.cs" />
     <Compile Include="Environment\Map\IMap.cs" />
     <Compile Include="Search\Domain\Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Search\Domain\DirectPathHeuristicFunction.cs" />
-    <Compile Include="Search\Domain\StringStateResultFunction.cs" />
+    <Compile Include="Search\Domain\ResultFunction.cs" />
     <Compile Include="Search\Domain\SimpleStepCostFunction.cs" />
     <Compile Include="Search\Domain\GoalTest.cs" />
     <Compile Include="Search\Domain\ActionsFunction.cs" />
@@ -65,10 +64,7 @@
     <Compile Include="Search\Framework\Problem.cs" />
     <Compile Include="FriendAssemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\Framework\SearchUtils.cs" />
     <Compile Include="Search\Informed\AStarSearch.cs" />
-    <Compile Include="Util\Datastructure\LabeledGraph.cs" />
-    <Compile Include="Util\Util.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
