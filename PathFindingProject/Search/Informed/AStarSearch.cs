@@ -13,11 +13,11 @@ namespace PathFindingProject.Search.Informed {
             this.m_heuristic = heuristic;
         }
 
-        public bool IsFailure( List<IAction> result ) {
+        public bool IsFailure( List<MoveToAction> result ) {
             return 0 == result.Count;
         }
 
-        public virtual IEnumerable<IAction> Search( Problem problem ) {
+        public virtual IEnumerable<MoveToAction> Search( Problem problem ) {
 			List<Node> frontier = new List<Node>();
 			HashSet<Node> explored = new HashSet<Node>();
 
@@ -50,7 +50,7 @@ namespace PathFindingProject.Search.Informed {
 					.ToList();
             }
 
-            return new List<IAction>();
+            return new List<MoveToAction>();
         }
 
 		private IEnumerable<Node> ExpandNode( 
@@ -96,15 +96,9 @@ namespace PathFindingProject.Search.Informed {
 			return goalTest.IsGoalState( state );
 		}
 
-		private List<IAction> ActionsFromNodes( IEnumerable<Node> nodeList ) {
-			var actions = new List<IAction>();
-			if( 0 == nodeList.Count() ) {
-				// I'm at the root node, this indicates I started at the
-				// Goal node, therefore just return a NoOp
-				actions.Add( null );
-			} else {
-				// ignore the root node this has no action
-				// hence index starts from 1 not zero
+		private List<MoveToAction> ActionsFromNodes( IEnumerable<Node> nodeList ) {
+			var actions = new List<MoveToAction>();
+			if( nodeList.Any() ) {
 				foreach( var node in nodeList ) {
 					if( node.Action == null ) {
 						continue;
@@ -112,6 +106,7 @@ namespace PathFindingProject.Search.Informed {
 					actions.Add( node.Action );
 				}
 			}
+
 			return actions;
 		}        
     }

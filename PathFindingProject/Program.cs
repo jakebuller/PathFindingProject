@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,7 +17,7 @@ namespace PathFindingProject {
         private static int DimX;
         private static int DimY;
         private static List<Point> Robots = new List<Point>();
-        private static Point Rendevous;
+        private static Point Rendezvous;
         private static ExtendableMap ProblemMap = new ExtendableMap();
         private static double Distance = 1;
         private static Stopwatch stopWatch = new Stopwatch();
@@ -64,22 +65,20 @@ namespace PathFindingProject {
 
 
                     if( pointValue == 1 ) {
-                        //Console.Write( " " );
                         continue;
                     }
 
-                    //Console.Write( pointValue );
                     var label = i + "," + j;
                     ProblemMap.AddVertex( label, i, j );
 
                     AddLinks( i, j, label );
                 }
-                //Console.WriteLine();
                 depth++;
             }
 
-            Console.WriteLine("Solving for muliple robots sequentially");
-            Parallel.ForEach(Robots, Robot=> {             
+			var fileNameStore = new ConcurrentBag<string>();
+            Parallel.ForEach(Robots, Robot=> {
+
                 var start = string.Format(
                     "{0},{1}",
                     Robot.XCoord,
@@ -89,20 +88,70 @@ namespace PathFindingProject {
                     start,
                     new ActionsFunction( ProblemMap ),
                     new ResultFunction(),
-                    new GoalTest( Rendevous ),
+                    new GoalTest( Rendezvous ),
                     new SimpleStepCostFunction()
                 );
 
-                IHeuristicFunction hf = new DirectPathHeuristicFunction( Rendevous );
+                IHeuristicFunction hf = 
+					new DirectPathHeuristicFunction( Rendezvous );
                 ISearch search = new AStarSearch( problem, hf );
                
                 stopWatch = Stopwatch.StartNew();
-                Console.WriteLine( string.Format(
-					"Starting search for robot with start at x: {0} and y: {1} ...",
-					Robot.XCoord,
-					Robot.YCoord
-				) );
-                var results = search.Search( problem );
+				var fileName = string.Format( 
+					"robot-Guid.-{0}.txt", 
+					Guid.NewGuid() 
+				);
+				fileNameStore.Add( fileName );
+                File.WriteAllText( 
+					fileName, 
+					string.Format(
+						"Robot starting at x: {0} and y: {1} ...\n",
+						Robot.XCoord,
+						Robot.YCoord
+					)
+				);
+
+				File.AppendAllText(
+					fileName,
+					string.Format(
+						"Solution path for robot starting at ({0},{1}):\n",
+						Robot.XCoord,
+						Robot.YCoord
+					)
+				);
+
+				if( Robot.Equals( Rendezvous ) ) {
+					File.AppendAllText(
+						fileName,
+						"This robot is starting at the goal state."
+					);
+				} else {
+
+					var results = search.Search( problem );
+
+					if( results.Any() ) {
+						File.AppendAllText(
+							fileName,
+							string.Format(
+								"({0},{1}) -> ({2})\n",
+								Robot.XCoord,
+								Robot.YCoord,
+								string.Join( 
+									") -> (", 
+									results.Select( 
+										m => m.TargetLocation
+									)
+								)
+							)
+						);
+					} else {
+						File.AppendAllText(
+							fileName,
+							"A path could not be found for this robot. " +
+							"It must be trapped!"
+						);
+					}
+				}
 
                 stopWatch.Stop();
                 // Get the elapsed time as a TimeSpan value.
@@ -116,18 +165,14 @@ namespace PathFindingProject {
 					ts.Seconds,
                     ts.Milliseconds
 				);
-                Console.WriteLine( "RunTime " + elapsedTime );
+				File.AppendAllText(
+					fileName,
+					string.Format( "RunTime: {0}\n", elapsedTime )
+				);
 
-                Console.WriteLine( "Actions:" );
-                Console.WriteLine( string.Format(
-                    "\t{0}",
-                    string.Join( "\n\t", results.Select( a => {
-                        var m = ( MoveToAction )a;
-                        return m.TargetLocation;
-                    } ) )
-                ) );
             });
 
+			MergeAndDeleteFiles( fileNameStore );
 
             execWatch.Stop();
             // Get the elapsed time as a TimeSpan value.
@@ -141,7 +186,9 @@ namespace PathFindingProject {
 				t.Seconds,
                 t.Milliseconds
 			);
-            Console.WriteLine( "RunTime " + elapsed );
+			Console.WriteLine( 
+				string.Format( "Total runtime: {0}", elapsed ) 
+			);
 #if DEBUG
             Console.WriteLine( "Press any key to exit." );
             System.Console.ReadKey();
@@ -149,6 +196,21 @@ namespace PathFindingProject {
 
             return 0;
         }
+
+		private static void MergeAndDeleteFiles( 
+			ConcurrentBag<string> fileNames 
+		) {
+			var outputFile = "output.txt";
+			File.WriteAllText( outputFile, "Results:" );
+			foreach( var fileName in fileNames ) {
+				File.AppendAllText( outputFile, "\n" );
+				File.AppendAllLines( 
+					outputFile, 
+					File.ReadAllLines( fileName ) 
+				);
+				File.Delete( fileName );
+			}
+		}
 
         private static void AddLinks( int x, int y, string currentLabel ) {
             var topNeighbourLabel = x + "," + ( y + 1 );
@@ -190,7 +252,7 @@ namespace PathFindingProject {
 
         private static void SetRendevousPoint( string line ) {
             string[] coords = line.Split( ' ' );
-            Rendevous = new Point( 
+            Rendezvous = new Point( 
 				int.Parse( coords[0] ),
 				int.Parse( coords[1] ) 
 			);
@@ -217,7 +279,9 @@ namespace PathFindingProject {
         }
 
 		private static void ShowParams() {
-			Console.WriteLine( "Expected parameter is a file path to the input file" );
+			Console.WriteLine( 
+				"Expected parameter is a file path to the input file" 
+			);
 		}
 
 		private static void ShowFileSetup() {
@@ -232,7 +296,8 @@ namespace PathFindingProject {
 			Console.WriteLine( 
 				"The coordinates of the rendezvous point, as 'X Y'" );
 			Console.WriteLine( 
-				"Room points (0, YMax - 1), (1, YMax - 1), ... , (XMax, YMax - 1)"
+				"Room points (0, YMax - 1), (1, YMax - 1), ... , " +
+				"(XMax, YMax - 1)"
 			);
 			Console.WriteLine("...");
 			Console.WriteLine(

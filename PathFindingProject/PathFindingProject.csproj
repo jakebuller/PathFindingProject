@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent\IAction.cs" />
     <Compile Include="Agent\MoveToAction.cs" />
     <Compile Include="Environment\Map\ExtendableMap.cs" />
     <Compile Include="Environment\Map\IMap.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="Search\Framework\IStepCostFunction.cs" />
     <Compile Include="Search\Framework\Node.cs" />
     <Compile Include="Search\Framework\Problem.cs" />
-    <Compile Include="FriendAssemblies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\Informed\AStarSearch.cs" />
   </ItemGroup>

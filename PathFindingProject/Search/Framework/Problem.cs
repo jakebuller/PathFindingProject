@@ -2,14 +2,14 @@
 namespace PathFindingProject.Search.Framework {
 	public class Problem {
 		private readonly string m_initialState;
-		private readonly IActionsFunction m_actionsFunction;
+		private readonly MoveToActionsFunction m_actionsFunction;
 		private readonly IResultFunction m_resultFunction;
 		private readonly IGoalTest m_goalTest;
 		private readonly IStepCostFunction m_stepCostFunction;
 
 		public Problem(
 			string initialState,
-			IActionsFunction actionsFunction,
+			MoveToActionsFunction actionsFunction,
 			IResultFunction resultFunction,
 			IGoalTest goalTest,
 			IStepCostFunction stepCostFunction
@@ -27,7 +27,7 @@ namespace PathFindingProject.Search.Framework {
 			}
 		}
 
-		public IActionsFunction ActionsFunction {
+		public MoveToActionsFunction ActionsFunction {
 			get {
 				return m_actionsFunction;
 			}

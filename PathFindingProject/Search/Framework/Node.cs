@@ -7,7 +7,7 @@ namespace PathFindingProject.Search.Framework {
 		
 		private readonly string m_state;
 		private readonly Node m_parent;
-		private readonly IAction m_action;
+		private readonly MoveToAction m_action;
 		private readonly int m_pathCost;
 		private readonly int m_estimateCost;
 
@@ -19,7 +19,7 @@ namespace PathFindingProject.Search.Framework {
 		public Node( 
 			string state,
 			Node parent,
-			IAction action,
+			MoveToAction action,
 			int stepCost,
 			int estimate
 		) {
@@ -42,7 +42,7 @@ namespace PathFindingProject.Search.Framework {
 			}
 		}
 
-		public IAction Action {
+		public MoveToAction Action {
 			get {
 				return m_action;
 			}

@@ -3,7 +3,7 @@
 using PathFindingProject.Agent;
 
 namespace PathFindingProject.Search.Framework {
-    public interface IActionsFunction {
-        HashSet<IAction> GetActions( string state );
+    public interface MoveToActionsFunction {
+        HashSet<MoveToAction> GetActions( string state );
     }
 }

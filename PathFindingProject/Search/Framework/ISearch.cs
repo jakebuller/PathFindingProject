@@ -4,6 +4,6 @@ using PathFindingProject.Agent;
 
 namespace PathFindingProject.Search.Framework {
 	public interface ISearch {
-		IEnumerable<IAction> Search( Problem problem );
+		IEnumerable<MoveToAction> Search( Problem problem );
 	}
 }
