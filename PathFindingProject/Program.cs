@@ -25,12 +25,16 @@ namespace PathFindingProject {
         public static int Main( string[] args ) {
 			if( args.Length != 1 ) {
 				ShowParams();
+                Console.WriteLine( "Press any key to exit." );
+                System.Console.ReadKey();
 				return -1;
 			}
 			var path = args[0];
 			if( !File.Exists( path ) ) {
 				ShowParams();
 				ShowFileSetup();
+                Console.WriteLine( "Press any key to exit." );
+                System.Console.ReadKey();
 				return -2;
 			}
             execWatch = Stopwatch.StartNew();
@@ -131,7 +135,7 @@ namespace PathFindingProject {
 
             // Format and display the TimeSpan value. 
             string elapsed = string.Format( 
-				"{0:00}:{1:00}:{2:00}.{3:00}.{4:00}",
+				"{0:00}:{1:00}:{2:00}.{3:00}",
                 t.Hours,
 				t.Minutes,
 				t.Seconds,
