@@ -76,6 +76,9 @@
     <Content Include="Maps\OneRobotLargeMapWithObstacles.txt" />
     <Content Include="Maps\OneRobotVeryLargeMapNoObstacles.txt" />
     <Content Include="Maps\FourRobotsVeryLargeMapNoObstacles.txt" />
+    <Content Include="Maps\OneRobot25x25.txt" />
+    <Content Include="Maps\FourRobots28x28.txt" />
+    <Content Include="Maps\TwoRobots20x20.txt" />
     <Content Include="Maps\TwoRobotsVeryLargeMapNoObstacles.txt" />
     <Content Include="Maps\ThreeRobots30x30.txt" />
   </ItemGroup>
