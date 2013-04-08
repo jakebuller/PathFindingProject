@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using System.Linq;
 using PathFindingProject.Agent;
 using PathFindingProject.Search.Framework;
@@ -27,6 +28,8 @@ namespace PathFindingProject.Search.Informed {
 				Node nodeToExpand = frontier.First();
 				frontier.Remove( nodeToExpand );
 
+                //Console.WriteLine( nodeToExpand.State );
+
 				var newNodes = ExpandNode(
 					nodeToExpand,
 					explored,
@@ -45,7 +48,7 @@ namespace PathFindingProject.Search.Informed {
 
 				// This could be costly.  Find better alternative later
 				frontier = frontier
-					.OrderBy( n => n.PathCost + n.EstimateCost )
+					.OrderByDescending( n => n.PathCost + n.EstimateCost )
 					.Distinct()
 					.ToList();
             }

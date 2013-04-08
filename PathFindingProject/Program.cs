@@ -76,8 +76,10 @@ namespace PathFindingProject {
                 depth++;
             }
 
+            Console.WriteLine( "Finished building." );
+
 			var fileNameStore = new ConcurrentBag<string>();
-            Parallel.ForEach(Robots, Robot=> {
+            Parallel.ForEach( Robots, Robot => {
 
                 var start = string.Format(
                     "{0},{1}",
@@ -92,85 +94,94 @@ namespace PathFindingProject {
                     new SimpleStepCostFunction()
                 );
 
-                IHeuristicFunction hf = 
-					new DirectPathHeuristicFunction( Rendezvous );
+                IHeuristicFunction hf =
+                    new DirectPathHeuristicFunction( Rendezvous );
                 ISearch search = new AStarSearch( problem, hf );
-               
+
                 stopWatch = Stopwatch.StartNew();
-				var fileName = string.Format( 
-					"robot-Guid.-{0}.txt", 
-					Guid.NewGuid() 
-				);
-				fileNameStore.Add( fileName );
-                File.WriteAllText( 
-					fileName, 
-					string.Format(
-						"Robot starting at x: {0} and y: {1} ...\n",
-						Robot.XCoord,
-						Robot.YCoord
-					)
-				);
+                var fileName = string.Format(
+                    "robot-Guid.-{0}.txt",
+                    Guid.NewGuid()
+                );
+                fileNameStore.Add( fileName );
+                File.WriteAllText(
+                    fileName,
+                    string.Format(
+                        "Robot starting at x: {0} and y: {1} ...\n",
+                        Robot.XCoord,
+                        Robot.YCoord
+                    )
+                );
+                Console.WriteLine( string.Format(
+                        "Robot starting at x: {0} and y: {1} ...\n",
+                        Robot.XCoord,
+                        Robot.YCoord
+                    ) );
+                File.AppendAllText(
+                    fileName,
+                    string.Format(
+                        "Solution path for robot starting at ({0},{1}):\n",
+                        Robot.XCoord,
+                        Robot.YCoord
+                    )
+                );
+                Console.WriteLine( string.Format(
+                        "Solution path for robot starting at ({0},{1}):\n",
+                        Robot.XCoord,
+                        Robot.YCoord
+                    ) );
+                if( Robot.Equals( Rendezvous ) ) {
+                    File.AppendAllText(
+                        fileName,
+                        "This robot is starting at the goal state."
+                    );
+                } else {
 
-				File.AppendAllText(
-					fileName,
-					string.Format(
-						"Solution path for robot starting at ({0},{1}):\n",
-						Robot.XCoord,
-						Robot.YCoord
-					)
-				);
+                    var results = search.Search( problem );
 
-				if( Robot.Equals( Rendezvous ) ) {
-					File.AppendAllText(
-						fileName,
-						"This robot is starting at the goal state."
-					);
-				} else {
-
-					var results = search.Search( problem );
-
-					if( results.Any() ) {
-						File.AppendAllText(
-							fileName,
-							string.Format(
-								"({0},{1}) -> ({2})\n",
-								Robot.XCoord,
-								Robot.YCoord,
-								string.Join( 
-									") -> (", 
-									results.Select( 
-										m => m.TargetLocation
-									)
-								)
-							)
-						);
-					} else {
-						File.AppendAllText(
-							fileName,
-							"A path could not be found for this robot. " +
-							"It must be trapped!"
-						);
-					}
-				}
+                    if( results.Any() ) {
+                        File.AppendAllText(
+                            fileName,
+                            string.Format(
+                                "({0},{1}) -> ({2})\n",
+                                Robot.XCoord,
+                                Robot.YCoord,
+                                string.Join(
+                                    ") -> (",
+                                    results.Select(
+                                        m => m.TargetLocation
+                                    )
+                                )
+                            )
+                        );
+                        Console.WriteLine( "finished for robot starting at: " + Robot.XCoord + ", " + Robot.YCoord );
+                    } else {
+                        File.AppendAllText(
+                            fileName,
+                            "A path could not be found for this robot. " +
+                            "It must be trapped!"
+                        );
+                    }
+                }
 
                 stopWatch.Stop();
                 // Get the elapsed time as a TimeSpan value.
                 TimeSpan ts = stopWatch.Elapsed;
 
                 // Format and display the TimeSpan value. 
-                string elapsedTime = string.Format( 
-					"{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, 
-					ts.Minutes, 
-					ts.Seconds,
+                string elapsedTime = string.Format(
+                    "{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours,
+                    ts.Minutes,
+                    ts.Seconds,
                     ts.Milliseconds
-				);
-				File.AppendAllText(
-					fileName,
-					string.Format( "RunTime: {0}\n", elapsedTime )
-				);
+                );
+                File.AppendAllText(
+                    fileName,
+                    string.Format( "RunTime: {0}\n", elapsedTime )
+                );
 
-            });
+            } );
 
 			MergeAndDeleteFiles( fileNameStore );
 
